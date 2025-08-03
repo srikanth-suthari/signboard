@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <!-- DEBUG: Show authentication status -->
+    <div class="alert alert-info mb-3">
+        Authenticated: {{ user.is_authenticated }}{% if user.is_authenticated %} | User: {{ user.username }}{% endif %}
+    </div>
+    <h2 class="mb-4">Available Interior Designers</h2>
+    <a href="{% url 'interior:designer_create' %}" class="btn btn-success mb-4">Add Designer</a>
+    <div class="row g-4">
+        {% for designer in designers %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                {% if designer.profile_image %}
+                <img src="{{ designer.profile_image.url }}" class="card-img-top" alt="{{ designer.name }}" style="height: 220px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ designer.name }}</h5>
+                    <a href="{% url 'interior:designer_detail' designer.id %}" class="btn btn-primary mt-2">View Gallery & Contact</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'interior:designer_edit' designer.id %}" class="btn btn-warning mt-2 ms-2">Edit</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted">No designers found.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

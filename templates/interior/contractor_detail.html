@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ contractor.name }} - Interior Contractor{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img src="{{ contractor.profile_image.url|default:'static/images/contractors/1.jpg' }}" class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;" alt="{{ contractor.name }}">
+                    <h4 class="card-title">{{ contractor.name }}</h4>
+                    <p class="text-muted">{{ contractor.category.name }}</p>
+                    <p><strong>Phone:</strong> {{ contractor.phone }}</p>
+                    <p><strong>Email:</strong> {{ contractor.email }}</p>
+                    <a href="tel:{{ contractor.phone }}" class="btn btn-primary btn-sm mb-2">Call Now</a>
+                    <a href="mailto:{{ contractor.email }}" class="btn btn-outline-secondary btn-sm mb-2">Email</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h5>Gallery</h5>
+            <div class="row">
+                {% for image in gallery %}
+                <div class="col-md-6 mb-3">
+                    <img src="{{ image }}" class="img-fluid rounded shadow-sm" alt="Gallery {{ forloop.counter }}">
+                </div>
+                {% empty %}
+                <div class="col-12 text-muted">No gallery images found for this contractor.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

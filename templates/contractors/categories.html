@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contractor Categories - A & A Urban Services{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Contractor Categories</h2>
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                    <p class="card-text text-muted small">{{ category.description }}</p>
+                    <a href="{% url 'contractors:by_category' category.id %}" class="btn btn-outline-primary btn-sm mt-2">View Contractors</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">No categories found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

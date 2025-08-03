@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Booking Details</h2>
+    <div class="card p-4 shadow-sm">
+        <h5>Booking Number: <span class="text-primary">{{ booking.booking_number }}</span></h5>
+        <p><strong>Vehicle:</strong> {{ booking.vehicle.make_model }} ({{ booking.vehicle.license_plate }})</p>
+        <p><strong>Type:</strong> {{ booking.get_booking_type_display }}</p>
+        <p><strong>Pickup Location:</strong> {{ booking.pickup_location }}</p>
+        <p><strong>Pickup Date & Time:</strong> {{ booking.pickup_date }} {{ booking.pickup_time }}</p>
+        <p><strong>Dropoff Location:</strong> {{ booking.dropoff_location }}</p>
+        <p><strong>Return Date & Time:</strong> {{ booking.return_date }} {{ booking.return_time }}</p>
+        <p><strong>Contact Phone:</strong> {{ booking.contact_phone }}</p>
+        <p><strong>Passenger Count:</strong> {{ booking.passenger_count }}</p>
+        <p><strong>Special Requirements:</strong> {{ booking.special_requirements }}</p>
+        <p><strong>Estimated Distance (km):</strong> {{ booking.estimated_distance_km }}</p>
+        <p><strong>Estimated Duration (hours):</strong> {{ booking.estimated_duration_hours }}</p>
+        <hr>
+        <h5>Fare Details</h5>
+        <p><strong>Total Fare:</strong> ₹{{ booking.total_fare }}</p>
+    </div>
+    <a href="{% url 'vehicles:my_bookings' %}" class="btn btn-secondary mt-4">Back to My Bookings</a>
+</div>
+{% endblock %}

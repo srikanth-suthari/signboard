@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Hero Section with Rotating Background and Big Title -->
+    <section id="hero-section" class="hero-section position-relative text-white d-flex align-items-center justify-content-center" style="min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/static/images/interior/1.jpg') center/cover; transition: background-image 1s ease-in-out;">
+        <div class="container text-center">
+            <h1 class="display-2 fw-bold mb-4">s&m-middleclassbusiness.in</h1>
+            <p class="lead mb-3 text-warning fw-semibold">(A platform for every hardworking Indian family)</p>
+            <p class="lead mb-4">
+                S&M Middleclass Business is your trusted digital partner for everyday needs—connecting families, small businesses, and skilled professionals across India.<br>
+                <span class="d-block mt-2">We empower the dreams of the middle class by making quality services accessible, affordable, and reliable. <br>
+                Your aspirations, our mission—because every family deserves a better tomorrow.</span>
+            </p>
+        </div>
+    </section>
+    <script>
+    // Rotating hero background images (all service images)
+    const heroImages = [
+      '/static/images/interior/1.jpg',
+      'static/images/contractors/1.jpg',
+      '/static/images/signboards/WhatsApp Image 2025-07-30 at 12.03.40 PM.jpeg',
+      '/static/images/vehicles/Screenshot 2025-08-02 at 11.59.36 AM.png'
+    ];
+    let heroIndex = 0;
+    setInterval(() => {
+      heroIndex = (heroIndex + 1) % heroImages.length;
+      document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${heroImages[heroIndex]}')`;
+    }, 4000);
+    </script>
+
+    <!-- Services Section: 4 Cards -->
+    <section class="services-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Our Services</h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-3 col-md-6">
+                    <a href="/interior/contractors/" class="text-decoration-none text-dark">
+                        <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
+                            <div class="service-image">
+                                <img src="{{ interior_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Interior Services" style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div>
+                                <div class="service-icon mb-3">
+                                    <i class="fas fa-couch fa-2x text-secondary"></i>
+                                </div>
+                                <h5 class="card-title">Interior</h5>
+                                <p class="card-text">Modern home & office interiors, modular kitchens, wardrobes, and more.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="/contractors/" class="text-decoration-none text-dark">
+                        <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
+                            <div class="service-image">
+                                <img src="{{ contractor_image }}" class="card-img-top" alt="Professional Contractors" style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div>
+                                <div class="service-icon mb-3">
+                                    <i class="fas fa-tools fa-2x text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Contractors</h5>
+                                <p class="card-text">Verified professionals for plumbing, electrical, carpentry, and more.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="/signboards/" class="text-decoration-none text-dark">
+                        <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
+                            <div class="service-image">
+                                <img src="{{ signboard_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Professional Signboards" style="height: 200px; object-fit: cover;">
+                            </div>
+                            <div>
+                                <div class="service-icon mb-3">
+                                    <i class="fas fa-sign fa-2x text-warning"></i>
+                                </div>
+                                <h5 class="card-title">Signboards</h5>
+                                <p class="card-text">ACP, acrylic, LED signboards—design, manufacture, and install.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="position-relative h-100">
+                        <a href="/vehicles/" class="text-decoration-none text-dark">
+                            <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
+                                <div class="service-image">
+                                    <img src="{{ vehicle_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Vehicle Rental Services" style="height: 200px; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div class="service-icon mb-3">
+                                        <i class="fas fa-car fa-2x text-info"></i>
+                                    </div>
+                                    <h5 class="card-title">Vehicles</h5>
+                                    <p class="card-text">Book cars, bikes, and commercial vehicles with professional drivers.</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/vehicles/upload/" class="btn btn-success btn-sm position-absolute top-0 end-0 m-2" style="z-index:2;">
+                            <i class="fas fa-upload"></i> Upload Your Vehicle
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer Section -->
+     <footer class="footer-section bg-dark text-white py-4 mt-5">
+         <div class="container text-center">
+             <div class="mb-2">
+                 <strong>S&amp;M Urban Services</strong> &copy; 2025. All rights reserved.
+             </div>
+             <div>
+                 <span><i class="fas fa-phone"></i> 9640695430</span> |
+                 <span><i class="fas fa-envelope"></i> mahesh.suthari1989@gmail.com</span> |
+                 <span><i class="fas fa-map-marker-alt"></i> Hyderabad, India</span>
+             </div>
+         </div>
+     </footer>
+
+        </div>
+    </div>
+</section>
+
+<!-- Featured Contractors Section -->
+<section class="featured-contractors-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Meet Our Top Contractors</h2>
+            <p class="text-muted">Skilled, verified, and ready to help you today</p>
+        </div>
+        <div class="row justify-content-center">
+            {% for contractor in contractors|slice:':3' %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="d-flex align-items-center p-3">
+                        <div class="me-3">
+                            <span class="fa-stack fa-2x">
+                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fas fa-user-gear fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">{{ contractor.name }}</h5>
+                            <div class="text-muted small mb-1">
+                                <i class="fas fa-tools"></i> {{ contractor.category.name }}
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fas fa-phone"></i> {{ contractor.phone }}
+                            </div>
+                        </div>
+                    </div>
+                    <img src="/static/images/vehicles/Screenshot 2025-08-02 at 11.59.36 AM.png" class="card-img-bottom" alt="Worker with tools" style="height: 120px; object-fit: cover;">
+                    <div class="card-body">
+                        <p class="card-text small">{{ contractor.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success"><i class="fas fa-check-circle"></i> Verified</span>
+                            <a href="{% url 'contractors:detail' contractor.id %}" class="btn btn-outline-primary btn-sm">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">No contractors available.</div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-4">Why Choose A &amp; A Urban Services?</h2>
+                <div class="features-list">
+                    <div class="feature-item d-flex mb-3">
+                        <div class="feature-icon me-3">
+                            <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h5>Verified Professionals</h5>
+                            <p class="text-muted">All our service providers are background verified and highly rated.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item d-flex mb-3">
+                        <div class="feature-icon me-3">
+                            <i class="fas fa-clock fa-2x text-success"></i>
+                        </div>
+                        <div>
+                            <h5>Quick Service</h5>
+                            <p class="text-muted">Fast response times and efficient service delivery guaranteed.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item d-flex mb-3">
+                        <div class="feature-icon me-3">
+                            <i class="fas fa-star fa-2x text-warning"></i>
+                        </div>
+                        <div>
+                            <h5>Quality Assured</h5>
+                            <p class="text-muted">100% satisfaction guarantee with quality service standards.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item d-flex">
+                        <div class="feature-icon me-3">
+                            <i class="fas fa-headset fa-2x text-info"></i>
+                        </div>
+                        <div>
+                            <h5>24/7 Support</h5>
+                            <p class="text-muted">Round-the-clock customer support for all your queries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="stats-grid">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card card text-center p-3">
+                                <h3 class="text-primary">500+</h3>
+                                <p class="mb-0">Verified Contractors</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card card text-center p-3">
+                                <h3 class="text-success">1000+</h3>
+                                <p class="mb-0">Happy Customers</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card card text-center p-3">
+                                <h3 class="text-warning">98%</h3>
+                                <p class="mb-0">Success Rate</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card card text-center p-3">
+                                <h3 class="text-info">24h</h3>
+                                <p class="mb-0">Average Response</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-6 fw-bold mb-4">Get In Touch</h2>
+                <p class="lead mb-5">Have questions? Need a custom quote? We're here to help!</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-phone fa-3x text-primary"></i>
+                    </div>
+                    <h5>Call Us</h5>
+                    <p class="text-muted mb-2">Ready to help you</p>
+                    <a href="tel:9000666803" class="btn btn-outline-primary">
+                        <i class="fas fa-phone"></i> 9000666803
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-envelope fa-3x text-success"></i>
+                    </div>
+                    <h5>Email Us</h5>
+                    <p class="text-muted mb-2">Quick response guaranteed</p>
+                    <a href="mailto:info@snmservices.com" class="btn btn-outline-success">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
+                    <div class="contact-icon mb-3">
+                        <i class="fas fa-map-marker-alt fa-3x text-warning"></i>
+                    </div>
+                    <h5>Visit Us</h5>
+                    <p class="text-muted mb-2">Mallapur, Hyderabad</p>
+                    <a href="https://maps.google.com/?q=Mallapur,Hyderabad" target="_blank" class="btn btn-outline-warning">
+                        <i class="fas fa-map-marker-alt"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section bg-primary text-white py-5">
+    <div class="container text-center">
+        <h2 class="display-6 fw-bold mb-4">Ready to Get Started?</h2>
+        <p class="lead mb-4">Join hundreds of businesses and families who trust A &amp; A Urban Services for quality, reliability, and innovation.</p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn btn-light btn-lg">
+            <i class="fas fa-user-plus"></i> Sign Up Today
+        </a>
+        {% else %}
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'contractors:list' %}" class="btn btn-light">Find Contractors</a>
+            <a href="{% url 'signboards:quote' %}" class="btn btn-outline-light">Get Signboard Quote</a>
+            <a href="{% url 'vehicles:book' %}" class="btn btn-outline-light">Book Vehicle</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

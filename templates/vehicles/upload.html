@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Upload Your Vehicle for Rent</h2>
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Vehicle</button>
+    </form>
+</div>
+{% endblock %}

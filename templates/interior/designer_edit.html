@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Edit Designer: {{ designer.name }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <h5 class="mt-4">Gallery Images <small class="text-muted">(You can upload up to 10 images at once)</small></h5>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="mb-3 border rounded p-2">
+                {{ form|crispy }}
+                {% if form.instance.pk %}
+                    <label>Delete:</label> {{ form.DELETE }}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        <a href="{% url 'interior:designer_detail' designer.id %}" class="btn btn-secondary mt-3 ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} Contractors - S&M Services{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4 text-center">{{ category.name }} Contractors</h2>
+    <div class="row g-4">
+        {% for contractor in contractors %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="contractor-image">
+                    {% if contractor.profile_image %}
+                        <img src="{{ contractor.profile_image.url }}" class="card-img-top" alt="{{ contractor.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'images/contractors/tools-hero.jpg' %}" class="card-img-top" alt="Contractor" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ contractor.name }}</h5>
+                    <p class="card-text mb-1"><strong>Expertise:</strong> {{ contractor.get_expertise_display }}</p>
+                    <p class="card-text mb-1"><strong>Phone:</strong> {{ contractor.phone }}</p>
+                    <p class="card-text small text-muted">{{ contractor.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p class="text-muted">No contractors found in this category.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
