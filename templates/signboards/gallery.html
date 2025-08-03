@@ -43,90 +43,22 @@
                 <span class="text-muted">{{ gallery_items|length }} signboard{{ gallery_items|length|pluralize }} in gallery</span>
             </div>
             
-            <!-- Static Uploaded Signboard Images (always visible) -->
+            <!-- Static Uploaded Signboard Images (dynamically loaded) -->
+            {% if static_signboard_images %}
             <div class="gallery-grid mb-4">
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.03.40 PM.jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
+                {% for image in static_signboard_images %}
+                <div class="gallery-item card border-0 shadow-sm">
+                    <img src="{{ image }}" class="card-img-top" alt="Signboard {{ forloop.counter }}" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="card-title">Signboard {{ forloop.counter }}</h6>
+                        </div>
+                        <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Gallery</p>
+                    </div>
                 </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.03.41 PM (1).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.03.41 PM.jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM (1).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM (2).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM (3).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM (4).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM (5).jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
-              <div class="gallery-item card border-0 shadow-sm">
-                <img src="{% static 'images/signboards/WhatsApp Image 2025-07-30 at 12.09.56 PM.jpeg' %}" class="card-img-top" alt="Signboard" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title">Signboard</h6>
-                  </div>
-                  <p class="text-muted small mb-2"><i class="fas fa-tag"></i> Uploaded</p>
-                </div>
-              </div>
+                {% endfor %}
             </div>
+            {% endif %}
             {% if gallery_items %}
                 <!-- Dynamic Gallery Items -->
                 <div class="gallery-grid">

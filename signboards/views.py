@@ -23,10 +23,22 @@ def gallery(request):
     if type_filter:
         gallery_items = gallery_items.filter(signboard_type_id=type_filter)
     
+    # Get static signboard images
+    import os
+    from django.conf import settings
+    
+    static_signboard_images = []
+    signboard_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'signboards')
+    if os.path.isdir(signboard_dir):
+        for fname in sorted(os.listdir(signboard_dir)):
+            if fname.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.gif')):
+                static_signboard_images.append(f'/static/images/signboards/{fname}')
+    
     return render(request, 'signboards/gallery.html', {
         'gallery_items': gallery_items,
         'signboard_types': signboard_types,
         'selected_type': int(type_filter) if type_filter else None,
+        'static_signboard_images': static_signboard_images,
     })
 
 @login_required
