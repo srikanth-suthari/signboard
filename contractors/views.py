@@ -58,7 +58,42 @@ def book_contractor(request, contractor_id):
             booking.customer = request.user
             booking.contractor = contractor
             booking.save()
-            messages.success(request, 'Booking request submitted successfully!')
+            
+            # Send WhatsApp message to contractor
+            try:
+                from utils.whatsapp import send_whatsapp_message
+                message = f"""
+🔔 New Booking Request!
+
+👤 Customer: {request.user.first_name} {request.user.last_name}
+📞 Phone: {booking.contact_phone}
+📧 Email: {request.user.email}
+
+🏗️ Project: {booking.project_title}
+📝 Description: {booking.project_description}
+
+💰 Budget: ₹{booking.budget}
+⏱️ Duration: {booking.estimated_duration}
+📅 Start Date: {booking.preferred_start_date.strftime('%d %B %Y')}
+📍 Address: {booking.project_address}
+
+Booking ID: #{booking.id}
+
+Please contact the customer to discuss further details.
+
+S&M Urban Services
+                """.strip()
+                
+                # Ensure phone number format for WhatsApp (add +91 if not present)
+                contractor_phone = contractor.phone
+                if not contractor_phone.startswith('+'):
+                    contractor_phone = f'+91{contractor_phone}'
+                
+                send_whatsapp_message(contractor_phone, message)
+                messages.success(request, 'Booking request submitted successfully! The contractor will contact you soon via WhatsApp.')
+            except Exception as e:
+                messages.warning(request, f'Booking submitted but WhatsApp notification failed: {str(e)}. The contractor will still receive your booking request.')
+            
             return redirect('contractors:booking_detail', booking_id=booking.id)
     else:
         form = ContractorBookingForm()

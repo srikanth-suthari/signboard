@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Details - S&M Urban Services{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Success Message -->
+            <div class="alert alert-success d-flex align-items-center mb-4">
+                <i class="fas fa-check-circle fa-2x me-3"></i>
+                <div>
+                    <h5 class="mb-1">Booking Submitted Successfully!</h5>
+                    <p class="mb-0">Your booking request has been sent to the contractor via WhatsApp. They will contact you soon.</p>
+                </div>
+            </div>
+
+            <!-- Booking Details Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-clipboard-list"></i> Booking Details
+                        <span class="badge bg-light text-dark ms-2">#{{ booking.id }}</span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Contractor Info -->
+                        <div class="col-md-6 mb-4">
+                            <h6 class="text-primary"><i class="fas fa-user-tie"></i> Contractor Information</h6>
+                            <div class="d-flex align-items-center mb-3">
+                                {% if booking.contractor.profile_image %}
+                                    <img src="{{ booking.contractor.profile_image.url }}" class="rounded-circle me-3" 
+                                         style="width: 60px; height: 60px; object-fit: cover;" alt="{{ booking.contractor.name }}">
+                                {% else %}
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                         style="width: 60px; height: 60px;">
+                                        <i class="fas fa-user text-white"></i>
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <h6 class="mb-1">{{ booking.contractor.name }}</h6>
+                                    <p class="text-muted mb-0 small">{{ booking.contractor.category.name }}</p>
+                                    <p class="text-muted mb-0 small">
+                                        <i class="fas fa-phone"></i> {{ booking.contractor.phone }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Info -->
+                        <div class="col-md-6 mb-4">
+                            <h6 class="text-success"><i class="fas fa-project-diagram"></i> Project Information</h6>
+                            <table class="table table-sm table-borderless">
+                                <tr>
+                                    <td class="text-muted"><i class="fas fa-tag"></i> Title:</td>
+                                    <td><strong>{{ booking.project_title }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted"><i class="fas fa-clock"></i> Duration:</td>
+                                    <td>{{ booking.estimated_duration }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted"><i class="fas fa-rupee-sign"></i> Budget:</td>
+                                    <td><strong>₹{{ booking.budget }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted"><i class="fas fa-calendar"></i> Start Date:</td>
+                                    <td>{{ booking.preferred_start_date|date:"d M Y" }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Project Description -->
+                    <div class="mb-4">
+                        <h6 class="text-info"><i class="fas fa-align-left"></i> Project Description</h6>
+                        <div class="bg-light p-3 rounded">
+                            {{ booking.project_description|linebreaks }}
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-4">
+                        <h6 class="text-warning"><i class="fas fa-map-marker-alt"></i> Project Location</h6>
+                        <div class="bg-light p-3 rounded">
+                            <address class="mb-0">{{ booking.project_address|linebreaks }}</address>
+                        </div>
+                    </div>
+
+                    <!-- Status and Contact -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-secondary"><i class="fas fa-info-circle"></i> Status</h6>
+                            <span class="badge bg-warning fs-6">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-secondary"><i class="fas fa-phone"></i> Your Contact</h6>
+                            <p class="mb-0">{{ booking.contact_phone }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0"><i class="fas fa-history"></i> Booking Timeline</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-success"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">Booking Submitted</h6>
+                                <p class="text-muted mb-0">{{ booking.created_at|date:"d M Y, H:i" }}</p>
+                                <small class="text-success">✓ WhatsApp notification sent to contractor</small>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker bg-warning"></div>
+                            <div class="timeline-content">
+                                <h6 class="mb-1">Waiting for Contractor Response</h6>
+                                <p class="text-muted mb-0">The contractor will contact you soon to discuss the project details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap justify-content-between">
+                <div>
+                    <a href="{% url 'contractors:list' %}" class="btn btn-outline-primary me-2 mb-2">
+                        <i class="fas fa-list"></i> Browse More Contractors
+                    </a>
+                    <a href="{% url 'contractors:my_bookings' %}" class="btn btn-outline-success mb-2">
+                        <i class="fas fa-history"></i> My Bookings
+                    </a>
+                </div>
+                <div>
+                    <a href="tel:{{ booking.contractor.phone }}" class="btn btn-primary me-2 mb-2">
+                        <i class="fas fa-phone"></i> Call Contractor
+                    </a>
+                    <a href="https://wa.me/{{ booking.contractor.phone|slice:'1:' }}?text=Hi, I have a booking inquiry regarding booking #{{ booking.id }}" 
+                       target="_blank" class="btn btn-success mb-2">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="card border-0 bg-light mt-4">
+                <div class="card-body text-center">
+                    <h6><i class="fas fa-question-circle"></i> Need Help?</h6>
+                    <p class="text-muted mb-3">If you don't hear from the contractor within 24 hours, please contact our support team.</p>
+                    <a href="tel:9640695430" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="fas fa-phone"></i> Call Support
+                    </a>
+                    <a href="mailto:mahesh.suthari1989@gmail.com" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-envelope"></i> Email Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 30px;
+}
+
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 25px;
+    bottom: -20px;
+    width: 2px;
+    background: #dee2e6;
+}
+
+.timeline-item:last-child:before {
+    display: none;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -15px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px #dee2e6;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+</style>
+{% endblock %}
