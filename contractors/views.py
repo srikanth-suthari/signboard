@@ -4,8 +4,50 @@ def contractor_register(request):
     if request.method == 'POST':
         form = ContractorRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Registration successful! Your profile will be reviewed soon.')
+            contractor = form.save()
+            
+            # Send WhatsApp welcome message to newly registered contractor
+            try:
+                from utils.whatsapp import send_whatsapp_message
+                message = f"""
+🎉 Welcome to S&M Urban Services!
+
+Hello {contractor.name},
+
+Your contractor profile has been successfully registered with us!
+
+📋 Profile Details:
+👤 Name: {contractor.name}
+📧 Email: {contractor.email}
+📞 Phone: {contractor.phone}
+🏗️ Category: {contractor.category.name}
+💼 Experience: {contractor.experience_years} years
+💰 Rate: ₹{contractor.hourly_rate}/hour
+
+🔍 What's Next?
+• Your profile is under review
+• You'll start receiving booking requests soon
+• Keep your phone handy for customer inquiries
+
+📞 Need Help?
+Contact our support team at 9640695430
+
+Welcome aboard! 🚀
+
+S&M Urban Services
+Team
+                """.strip()
+                
+                # Ensure phone number format for WhatsApp (add +91 if not present)
+                contractor_phone = contractor.phone
+                if not contractor_phone.startswith('+'):
+                    contractor_phone = f'+91{contractor_phone}'
+                
+                send_whatsapp_message(contractor_phone, message)
+                messages.success(request, 'Registration successful! Welcome message sent to your WhatsApp. Your profile will be reviewed soon.')
+            except Exception as e:
+                messages.success(request, f'Registration successful! However, WhatsApp notification failed: {str(e)}. Your profile will be reviewed soon.')
+            
             return redirect('contractors:list')
     else:
         form = ContractorRegistrationForm()
