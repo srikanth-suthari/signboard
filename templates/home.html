@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <!-- Hero Section with Rotating Background and Big Title -->
     <section id="hero-section" class="hero-section position-relative text-white d-flex align-items-center justify-content-center" style="min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% if interior_images %}{{ interior_images.0 }}{% else %}/static/images/placeholder.jpg{% endif %}') center/cover; transition: background-image 1s ease-in-out;">
@@ -12,21 +13,27 @@
             </p>
         </div>
     </section>
-    
+
+    <script id="hero-images" type="application/json">["{{ interior_images.0|default:''|escapejs }}","{{ contractor_image|default:''|escapejs }}","{{ signboard_images.0|default:''|escapejs }}","{{ vehicle_images.0|default:''|escapejs }}"]</script>
+
     <script>
-    // Rotating hero background images (all service images)
-    const heroImages = [
-      {% if interior_images and interior_images.0 %}'{{ interior_images.0 }}',{% endif %}
-      {% if contractor_image %}'{{ contractor_image }}',{% endif %}
-      {% if signboard_images and signboard_images.0 %}'{{ signboard_images.0 }}',{% endif %}
-      {% if vehicle_images and vehicle_images.0 %}'{{ vehicle_images.0 }}'{% endif %}
-    ].filter(img => img); // Remove empty values
-    
+    // Parse hero images JSON and filter out empty entries
+    let heroImages = [];
+    try {
+        const el = document.getElementById('hero-images');
+        if (el) {
+            heroImages = JSON.parse(el.textContent || el.innerText || '[]').filter(Boolean);
+        }
+    } catch (e) {
+        console.warn('Failed to parse hero images JSON', e);
+    }
+
     if (heroImages.length > 0) {
         let heroIndex = 0;
         setInterval(() => {
             heroIndex = (heroIndex + 1) % heroImages.length;
-            document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${heroImages[heroIndex]}')`;
+            const el = document.getElementById('hero-section');
+            if (el) el.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${heroImages[heroIndex]}')`;
         }, 4000);
     }
     </script>
@@ -172,7 +179,7 @@
                                 <p class="text-muted">All our service providers are background verified and highly rated.</p>
                             </div>
                         </div>
-                        
+
                         <div class="feature-item d-flex mb-3">
                             <div class="feature-icon me-3">
                                 <i class="fas fa-clock fa-2x text-success"></i>
@@ -182,7 +189,7 @@
                                 <p class="text-muted">Fast response times and efficient service delivery guaranteed.</p>
                             </div>
                         </div>
-                        
+
                         <div class="feature-item d-flex mb-3">
                             <div class="feature-icon me-3">
                                 <i class="fas fa-star fa-2x text-warning"></i>
@@ -192,7 +199,7 @@
                                 <p class="text-muted">100% satisfaction guarantee with quality service standards.</p>
                             </div>
                         </div>
-                        
+
                         <div class="feature-item d-flex">
                             <div class="feature-icon me-3">
                                 <i class="fas fa-headset fa-2x text-info"></i>
@@ -247,7 +254,7 @@
                     <p class="lead mb-5">Have questions? Need a custom quote? We're here to help!</p>
                 </div>
             </div>
-            
+
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
@@ -261,7 +268,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
                         <div class="contact-icon mb-3">
@@ -274,7 +281,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <div class="contact-card card border-0 shadow-sm h-100 text-center p-4">
                         <div class="contact-icon mb-3">
@@ -310,17 +317,4 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer class="footer-section bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <div class="mb-2">
-                <strong>S&amp;M Urban Services</strong> &copy; 2025. All rights reserved.
-            </div>
-            <div>
-                <span><i class="fas fa-phone"></i> 9640695430</span> |
-                <span><i class="fas fa-envelope"></i> mahesh.suthari1989@gmail.com</span> |
-                <span><i class="fas fa-map-marker-alt"></i> Hyderabad, India</span>
-            </div>
-        </div>
-    </footer>
 {% endblock %}
