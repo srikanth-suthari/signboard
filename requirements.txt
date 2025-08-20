@@ -11,3 +11,6 @@ Pillow>=9.5.0
 django-crispy-forms>=1.14.0
 crispy-bootstrap4>=2020.1
 django-widget-tweaks>=1.4.12
+
+# Static file serving in production
+whitenoise>=6.4.0
