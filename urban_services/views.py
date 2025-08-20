@@ -11,15 +11,16 @@ def home(request):
             if fname.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.gif')):
                 images.append(f'/static/images/interior/{fname}')
 
-    # Pick a random contractor image from static/images/contractor/
+    # Pick a random contractor image from static/images/contractors/
     import random
-    contractor_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'contractor')
+    contractor_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'contractors')
     contractor_images = []
     if os.path.isdir(contractor_dir):
         for fname in os.listdir(contractor_dir):
             if fname.lower().endswith(('.png', '.jpg', '.jpeg', '.webp', '.gif')):
-                contractor_images.append(f'/static/images/contractor/{fname}')
-    contractor_image = random.choice(contractor_images) if contractor_images else 'static/images/contractors/1.jpg'
+                contractor_images.append(f'/static/images/contractors/{fname}')
+    # Ensure the fallback has a leading slash so templates resolve it as an absolute path
+    contractor_image = random.choice(contractor_images) if contractor_images else '/static/images/contractors/1.jpg'
 
     # List all images in static/images/signboards/
     signboard_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'signboards')

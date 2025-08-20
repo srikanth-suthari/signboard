@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <!-- Hero Section with Rotating Background and Big Title -->
-    <section id="hero-section" class="hero-section position-relative text-white d-flex align-items-center justify-content-center" style="min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% if interior_images %}{{ interior_images.0 }}{% else %}/static/images/placeholder.jpg{% endif %}') center/cover; transition: background-image 1s ease-in-out;">
+    <section id="hero-section" class="hero-section position-relative text-white d-flex align-items-center justify-content-center" style="min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% if interior_images %}{{ interior_images.0 }}{% else %}/static/images/placeholder.png{% endif %}') center/cover; transition: background-image 1s ease-in-out;">
         <div class="container text-center">
             <h1 class="display-2 fw-bold mb-4">s&m-middleclassbusiness.in</h1>
             <p class="lead mb-3 text-warning fw-semibold">(A platform for every hardworking Indian family)</p>
@@ -49,7 +49,7 @@
                     <a href="/interior/contractors/" class="text-decoration-none text-dark">
                         <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
                             <div class="service-image">
-                                <img src="{{ interior_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Interior Services" style="height: 200px; object-fit: cover;">
+                                <img src="{{ interior_images.0|default:'/static/images/placeholder.png' }}" class="card-img-top" alt="Interior Services" style="height: 200px; object-fit: cover;">
                             </div>
                             <div class="card-body">
                                 <div class="service-icon mb-3">
@@ -65,7 +65,7 @@
                     <a href="/contractors/" class="text-decoration-none text-dark">
                         <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
                             <div class="service-image">
-                                <img src="{{ contractor_image|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Professional Contractors" style="height: 200px; object-fit: cover;">
+                                <img src="{{ contractor_image|default:'/static/images/placeholder.png' }}" class="card-img-top" alt="Professional Contractors" style="height: 200px; object-fit: cover;">
                             </div>
                             <div class="card-body">
                                 <div class="service-icon mb-3">
@@ -81,7 +81,7 @@
                     <a href="/signboards/" class="text-decoration-none text-dark">
                         <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
                             <div class="service-image">
-                                <img src="{{ signboard_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Professional Signboards" style="height: 200px; object-fit: cover;">
+                                <img src="{{ signboard_images.0|default:'/static/images/placeholder.png' }}" class="card-img-top" alt="Professional Signboards" style="height: 200px; object-fit: cover;">
                             </div>
                             <div class="card-body">
                                 <div class="service-icon mb-3">
@@ -98,7 +98,7 @@
                         <a href="/vehicles/" class="text-decoration-none text-dark">
                             <div class="service-card card h-100 border-0 shadow-sm hover-shadow-lg fade-in">
                                 <div class="service-image">
-                                    <img src="{{ vehicle_images.0|default:'/static/images/placeholder.jpg' }}" class="card-img-top" alt="Vehicle Rental Services" style="height: 200px; object-fit: cover;">
+                                    <img src="{{ vehicle_images.0|default:'/static/images/placeholder.png' }}" class="card-img-top" alt="Vehicle Rental Services" style="height: 200px; object-fit: cover;">
                                 </div>
                                 <div class="card-body">
                                     <div class="service-icon mb-3">
@@ -118,52 +118,71 @@
         </div>
     </section>
 
-    <!-- Featured Contractors Section -->
-    <section class="featured-contractors-section py-5 bg-light">
+    <!-- Featured Contractors Section removed -->
+
+    <!-- Features Section -->
+    <!-- Customers Marquee (above features) -->
+    <section class="customers-marquee py-4 bg-white">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Meet Our Top Contractors</h2>
-                <p class="text-muted">Skilled, verified, and ready to help you today</p>
+            <div class="text-center mb-3">
+                <h2 class="h2 fw-bold">Our Customers</h2>
             </div>
-            <div class="row justify-content-center">
-                {% for contractor in contractors|slice:':3' %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm border-0">
-                        <div class="d-flex align-items-center p-3">
-                            <div class="me-3">
-                                <span class="fa-stack fa-2x">
-                                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                                    <i class="fas fa-user-gear fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <h5 class="mb-1">{{ contractor.name }}</h5>
-                                <div class="text-muted small mb-1">
-                                    <i class="fas fa-tools"></i> {{ contractor.category.name }}
-                                </div>
-                                <div class="text-muted small">
-                                    <i class="fas fa-phone"></i> {{ contractor.phone }}
-                                </div>
-                            </div>
-                        </div>
-                        <img src="{{ contractor_image|default:'/static/images/placeholder.jpg' }}" class="card-img-bottom" alt="Worker with tools" style="height: 120px; object-fit: cover;">
-                        <div class="card-body">
-                            <p class="card-text small">{{ contractor.description|truncatewords:15 }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Verified</span>
-                                <a href="{% url 'contractors:detail' contractor.id %}" class="btn btn-outline-primary btn-sm">View</a>
-                            </div>
-                        </div>
+            <div class="marquee-wrap">
+                <div class="marquee d-flex align-items-center">
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/airtel.jpg' %}" alt="Customer 1" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/castrol.jpg' %}" alt="Customer 2" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/crompton.jpg' %}" alt="Customer 3" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/cub.jpg' %}" alt="Customer 4" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/linen_club_1.jpg' %}" alt="Customer 5" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/sbi.jpg' %}" alt="Customer 6" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/the_sleep_company.jpg' %}" alt="Customer 6" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/tumble_dry.jpg' %}" alt="Customer 6" class="img-fluid">
+                    </div>
+                    <!-- duplicate for seamless loop -->
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/airtel.jpg' %}" alt="Customer 1" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/castrol.jpg' %}" alt="Customer 2" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/crompton.jpg' %}" alt="Customer 3" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/cub.jpg' %}" alt="Customer 4" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/linen_club_1.jpg' %}" alt="Customer 5" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/sbi.jpg' %}" alt="Customer 6" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/the_sleep_company.jpg' %}" alt="Customer 6" class="img-fluid">
+                    </div>
+                    <div class="marquee-item flex-shrink-0 me-4">
+                        <img src="{% static 'images/marquee/tumble_dry.jpg' %}" alt="Customer 6" class="img-fluid">
                     </div>
                 </div>
-                {% empty %}
-                <div class="col-12 text-center text-muted">No contractors available.</div>
-                {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features-section py-5 bg-light">
         <div class="container">
             <div class="row align-items-center">
