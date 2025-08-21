@@ -14,3 +14,5 @@ django-widget-tweaks>=1.4.12
 
 # Static file serving in production
 whitenoise>=6.4.0
+
+gunicorn>=23.0.0
