@@ -45,7 +45,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2><i class="fas fa-car"></i> Available Vehicles</h2>
@@ -60,28 +60,28 @@
                     {% endif %}
                 </div>
             </div>
-            
+
             {% if vehicles %}
                 <div class="row">
                     {% for vehicle in vehicles %}
                         <div class="col-md-6 mb-4">
                             <div class="card h-100">
-                                {% if vehicle.image %}
+                                {% if vehicle.image and vehicle.image.url %}
                                     <img src="{{ vehicle.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ vehicle.make_model }}">
+                                {% elif vehicle.fallback_image %}
+                                    <img src="{% static vehicle.fallback_image %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ vehicle.make_model }}">
                                 {% else %}
-                                    <img src="{% static 'images/vehicles/Screenshot 2025-08-02 at 11.59.36 AM.png' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Vehicle">
+                                    <img src="{% static 'images/vehicles/' %}{% cycle 'Tata Ace.jpg' 'Toyota Innova.jpg' 'Honda Activa.jpg' 'Maruti Suzuki Swift.jpg' 'Maruti Suzuki Swift Dezire.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Vehicle">
                                 {% endif %}
-                                
+
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between align-items-start mb-2">
                                         <h5 class="card-title">{{ vehicle.make_model }}</h5>
                                         <span class="badge bg-primary">{{ vehicle.license_plate }}</span>
-                                    </div>
-                                    
-                                    <p class="text-muted mb-2">
+                                    </div>                                    <p class="text-muted mb-2">
                                         <i class="fas fa-tag"></i> {{ vehicle.vehicle_type.name }}
                                     </p>
-                                    
+
                                     <div class="vehicle-features mb-3">
                                         <div class="row text-center">
                                             <div class="col-6">
@@ -116,7 +116,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="pricing mb-3">
                                         <div class="d-flex justify-content-between">
                                             <span class="price">₹{{ vehicle.vehicle_type.base_rate_per_hour }}/hour</span>
@@ -132,9 +132,9 @@
                                     {% if vehicle.description %}
                                         <p class="small">{{ vehicle.description|truncatewords:20 }}</p>
                                     {% endif %}
-                                    
+
                                     {% if user.is_authenticated %}
-                                        <a href="{% url 'vehicles:book' %}?vehicle={{ vehicle.id }}" 
+                                        <a href="{% url 'vehicles:book' %}?vehicle={{ vehicle.id }}"
                                            class="btn btn-info w-100">
                                             <i class="fas fa-calendar-check"></i> Book This Vehicle
                                         </a>
